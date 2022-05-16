@@ -1,0 +1,7 @@
+{
+  "name": "digitalIsiApp",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
