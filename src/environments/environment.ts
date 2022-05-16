@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  baseUrl : "http://digitalisi.tn:8080/engine-rest/",
+  corsUrl : "https://cors-ionic.herokuapp.com"
 };
 
 /*
