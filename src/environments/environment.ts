@@ -4,9 +4,11 @@
 
 export const environment = {
   production: false,
-  baseUrl : "http://digitalisi.tn:8080/engine-rest/",
+  baseUrl : "http://digitalisi.tn:8080/engine-rest",
   corsUrl : "https://cors-ionic.herokuapp.com",
-  processesUri : "process-definition?latestVersion=true"
+  processDef : "process-definition",
+  processesUri : "?latestVersion=true",
+  processFormVars : 'form-variables'
 };
 
 /*

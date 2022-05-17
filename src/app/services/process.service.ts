@@ -11,6 +11,8 @@ import { StorageService } from './storage.service';
 const baseUrl = environment.baseUrl ; 
 const corsUrl = environment.corsUrl ; 
 const processesUri = environment.processesUri ;
+const processFormVars = environment.processFormVars ; 
+const processDef = environment.processDef ; 
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +30,13 @@ export class ProcessService {
   public getProcesses(key : string) : Observable<any>
   {
     const httpOptions = Header.getHeaders(key);
-    return this.http.get<any>(`${corsUrl}/${baseUrl}${processesUri}`,httpOptions)
+    return this.http.get<any>(`${corsUrl}/${baseUrl}/${processDef}/${processesUri}`,httpOptions)
+  }
+
+  public getProcessFormVars(key : string, process_id : string) : Observable<any>
+  {
+    const httpOptions = Header.getHeaders(key);
+    return this.http.get<any>(`${corsUrl}/${baseUrl}/${processDef}/${process_id}/${processFormVars}`,httpOptions)
   }
 
 }
