@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { ProcessGuard } from 'src/app/guards/process.guard';
 
 import { ProcessPage } from './process.page';
 

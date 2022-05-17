@@ -25,6 +25,7 @@ export class LoginPage implements OnInit {
   ) { }
 
   ngOnInit() {
+ 
   }
 
   loginForm = this.formBuilder.group(
@@ -51,4 +52,6 @@ export class LoginPage implements OnInit {
         console.log(err.status);
       }
     )}
+
+  
 }
