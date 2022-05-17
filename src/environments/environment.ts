@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   baseUrl : "http://digitalisi.tn:8080/engine-rest/",
-  corsUrl : "https://cors-ionic.herokuapp.com"
+  corsUrl : "https://cors-ionic.herokuapp.com",
+  processesUri : "process-definition?latestVersion=true"
 };
 
 /*
