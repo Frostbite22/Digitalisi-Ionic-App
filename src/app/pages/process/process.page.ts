@@ -20,7 +20,8 @@ export class ProcessPage implements OnInit {
      private router: Router,
      private processService : ProcessService,
      private storageService : StorageService,
-     private loadingController : LoadingController
+     private loadingController : LoadingController,
+     private authService : AuthService
 
   ) { }
 
@@ -49,12 +50,18 @@ export class ProcessPage implements OnInit {
         this.storageService.get(AuthConstants.AUTH).then((key) => {
         this.processService.getProcesses(key).subscribe((res) => {
           this.data = res ; 
+          console.log(res)
           loading.dismiss();
         });
         })
 
       }
       });
+  }
+
+  logout()
+  {
+    this.authService.logout();
   }
  
   

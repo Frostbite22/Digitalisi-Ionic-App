@@ -1,15 +1,24 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>process</ion-title>
+<ion-header >
+  <ion-toolbar color="secondary">
+    <ion-title class="ion-text-center">Process</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">
+        <ion-icon name="log-out"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-list>
-    <ion-item button *ngFor="let item of data" [routerLink] ="[item.id]">
+    <ion-item button lines="full" *ngFor="let process of data" [routerLink] ="[process.id]">
       <ion-label>
-        {{item.key}}
+        {{process.name}}
       </ion-label>
+      <ion-badge slot="end">
+        {{process.versionTag}}
+      </ion-badge>
+
     </ion-item>
   </ion-list>
 
