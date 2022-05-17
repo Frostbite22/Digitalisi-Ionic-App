@@ -24,9 +24,8 @@ export class LoginService {
     const b64 = btoa(unescape(encodeURIComponent(`${login.username}:${login.password}`)));
     const httpOptions = { headers : new HttpHeaders({'Content-Type': 'application/json',
     Authorization: `Basic ${b64}`,
-    'Access-Control-Allow-Origin': '*'
+    'Access-Control-Allow-Origin': '*',
     })};
-  
-    return this.http.get<any>(`${corsUrl}/${baseUrl}process-definition?latestVersion=true`,httpOptions);
+    return this.http.get<any>(`${corsUrl}/${baseUrl}process-definition?latestVersion=true`,httpOptions)
   }
 }
