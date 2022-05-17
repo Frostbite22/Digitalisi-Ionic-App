@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { InfiniteScrollCustomEvent, LoadingController } from '@ionic/angular';
 import { AuthConstants } from 'src/app/config/auth-constants';
 import { AuthService } from 'src/app/services/auth.service';
 import { ProcessService } from 'src/app/services/process.service';
@@ -18,7 +19,9 @@ export class ProcessPage implements OnInit {
     private route: ActivatedRoute,
      private router: Router,
      private processService : ProcessService,
-     private storageService : StorageService
+     private storageService : StorageService,
+     private loadingController : LoadingController
+
   ) { }
 
   ngOnInit() {  
@@ -26,20 +29,33 @@ export class ProcessPage implements OnInit {
    
   }
 
-  getProcesses() : void
+  async getProcesses(event? : InfiniteScrollCustomEvent) 
   {
+
+    const loading = await this.loadingController.create({
+      message : "Loading..",
+      spinner : "bubbles"
+    });
+
+      await loading.present();
+
       this.route.queryParams.subscribe(params => {
       try {
         this.data = this.router.getCurrentNavigation().extras.state.processes;
+        loading.dismiss();
       } 
       catch 
       {
         this.storageService.get(AuthConstants.AUTH).then((key) => {
-        this.data = this.processService.getProcesses(key);
+        this.processService.getProcesses(key).subscribe((res) => {
+          this.data = res ; 
+          loading.dismiss();
+        });
         })
+
       }
       });
-    }
+  }
  
   
 

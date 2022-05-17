@@ -5,5 +5,18 @@
 </ion-header>
 
 <ion-content>
+  <ion-list>
+    <ion-item button *ngFor="let item of data" [routerLink] ="[item.id]">
+      <ion-label>
+        {{item.key}}
+      </ion-label>
+    </ion-item>
+  </ion-list>
 
-</ion-content>
+  <ion-infinite-scroll (ionInfinite)="getProcesses($event)">
+    <ion-infinite-scroll-content
+    loadingSpinner="bubbles"
+    loadingText="Loading more data...">
+
+    </ion-infinite-scroll-content>
+</ion-infinite-scroll>
