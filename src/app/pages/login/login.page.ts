@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder,Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import { AuthConstants } from 'src/app/config/auth-constants';
 import { Login } from 'src/app/models/login';
-import { LoginService } from 'src/app/services/login.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { StorageService } from 'src/app/services/storage.service';
 
 
@@ -19,7 +19,7 @@ export class LoginPage implements OnInit {
 
   constructor(
     private formBuilder : FormBuilder,
-    private loginService : LoginService,
+    private authService : AuthService,
     private storageService : StorageService,
     private router : Router
   ) { }
@@ -38,10 +38,15 @@ export class LoginPage implements OnInit {
     authenticate(username : string, password :string)
     {
       let user = new Login(username,password);
-      this.loginService.authenticate(user).subscribe( (res) => {
-        console.log(res);
+      this.authService.authenticate(user).subscribe( (res) => {
         this.storageService.store(AuthConstants.AUTH,user) ;
-        this.router.navigate(['process']);
+        let navigationExtras : NavigationExtras = {
+          state: {
+            processes: res
+          }
+        };
+    
+        this.router.navigate(['process'],navigationExtras);
         this.storageService.get(AuthConstants.AUTH).then(
           (mdp) => {
             console.log("successful :"+ mdp);
