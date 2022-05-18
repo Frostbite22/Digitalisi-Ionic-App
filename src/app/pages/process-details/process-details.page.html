@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="secondary">
-    <ion-title class="ion-text-center">processDetails</ion-title>
+    <ion-title class="ion-text-center">{{process?.key}}</ion-title>
     <ion-buttons slot="start">
       <ion-back-button  defaultHref="/process"></ion-back-button>
     </ion-buttons>
@@ -15,5 +15,15 @@
 </ion-header>
 
 <ion-content>
-
-</ion-content>
+  <h3 id="processName">
+    {{process?.name}}
+  </h3>
+  <form [formGroup]="myForm">
+    <ion-item *ngFor="let control of obj" lines="full">
+      <ion-label position="floating">{{control}}</ion-label>
+      <ion-input [formControlName]="control" id="control"></ion-input>
+    </ion-item>
+    <br>
+    <ion-button type="submit" expand="block" color="secondary">Submit</ion-button>
+    </form>
+  </ion-content>

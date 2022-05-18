@@ -39,4 +39,10 @@ export class ProcessService {
     return this.http.get<any>(`${corsUrl}/${baseUrl}/${processDef}/${process_id}/${processFormVars}`,httpOptions)
   }
 
+  public getProcess(key : string, process_id : string) : Observable<any>
+  {
+    const httpOptions = Header.getHeaders(key);
+    return this.http.get<any>(`${corsUrl}/${baseUrl}/${processDef}/${process_id}`,httpOptions)
+  }
+
 }

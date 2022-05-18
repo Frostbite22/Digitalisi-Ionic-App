@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
 import { AuthConstants } from 'src/app/config/auth-constants';
@@ -13,14 +14,35 @@ import { StorageService } from 'src/app/services/storage.service';
 })
 export class ProcessDetailsPage implements OnInit {
 
-  processVars : any 
+  processVars : any;
+  process : any ; 
+  obj = [] ;
+  @Input() jsonFormData: any;
+  public myForm: FormGroup = this.fb.group({});
+
+  // ngOnChanges(changes: SimpleChanges) {
+  //   if (!changes.processVars) {
+  //     this.createForm();
+  //   }
+  // }
+
+  createForm()
+  {
+    Object.entries(this.processVars).forEach( ([key,value]) => {
+      this.myForm.addControl(key,new FormControl('', Validators.required));
+      this.obj.push(key);
+    });
+  }
+
+
 
   constructor(
     private authService : AuthService,
     private route : ActivatedRoute,
     private processService : ProcessService,
     private loadingController : LoadingController,
-    private storageService : StorageService
+    private storageService : StorageService,
+    private fb : FormBuilder
   ) { }
 
   ngOnInit() {
@@ -42,9 +64,18 @@ export class ProcessDetailsPage implements OnInit {
     this.storageService.get(AuthConstants.AUTH).then((key) => {
     this.processService.getProcessFormVars(key,process_id).subscribe((res) => {
         this.processVars = res ; 
-        loading.dismiss();
+        this.createForm(); 
       });
+      this.processService.getProcess(key,process_id).subscribe((res) => {
+        this.process = res ; 
+        console.log(this.process)
+        
+      });
+      loading.dismiss();
+
     })
+
+
 
   }
 
