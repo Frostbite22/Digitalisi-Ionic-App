@@ -5,6 +5,7 @@ import { AuthConstants } from 'src/app/config/auth-constants';
 import { Login } from 'src/app/models/login';
 import { AuthService } from 'src/app/services/auth.service';
 import { StorageService } from 'src/app/services/storage.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 
 
@@ -21,7 +22,8 @@ export class LoginPage implements OnInit {
     private formBuilder : FormBuilder,
     private authService : AuthService,
     private storageService : StorageService,
-    private router : Router
+    private router : Router,
+    private toastService : ToastService
   ) { }
 
   ngOnInit() {
@@ -49,12 +51,13 @@ export class LoginPage implements OnInit {
         this.router.navigate(['process'],navigationExtras);
         this.storageService.get(AuthConstants.AUTH).then(
           (mdp) => {
-            console.log("successful :"+ mdp);
+            this.toastService.presentToast("Logged in Successfully ")
           }
         )
       },
       err => {
         console.log(err.status);
+        this.toastService.failToast("Unsucessful Login")
       }
     )}
 

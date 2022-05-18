@@ -6,6 +6,7 @@ import { AuthConstants } from 'src/app/config/auth-constants';
 import { AuthService } from 'src/app/services/auth.service';
 import { ProcessService } from 'src/app/services/process.service';
 import { StorageService } from 'src/app/services/storage.service';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-process-details',
@@ -38,7 +39,8 @@ export class ProcessDetailsPage implements OnInit {
     private processService : ProcessService,
     private loadingController : LoadingController,
     private storageService : StorageService,
-    private fb : FormBuilder
+    private fb : FormBuilder,
+    private toastService : ToastService
   ) { }
 
   ngOnInit() {
@@ -91,7 +93,7 @@ export class ProcessDetailsPage implements OnInit {
 
     this.storageService.get(AuthConstants.AUTH).then((key) => {
       this.processService.submitForm(key,process_id,json).subscribe((res) => {
-          console.log(res); 
+        this.toastService.presentToast(`submitted sucessfully with Tracking id ${res.id}`);
         });
   
     });
