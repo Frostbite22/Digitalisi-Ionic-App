@@ -18,7 +18,6 @@ export class ProcessDetailsPage implements OnInit {
   processVars : any;
   process : any ; 
   obj = [] ;
-  @Input() jsonFormData: any;
   public myForm: FormGroup = this.fb.group({});
 
   createForm()
@@ -94,7 +93,13 @@ export class ProcessDetailsPage implements OnInit {
     this.storageService.get(AuthConstants.AUTH).then((key) => {
       this.processService.submitForm(key,process_id,json).subscribe((res) => {
         this.toastService.presentToast(`submitted sucessfully with Tracking id ${res.id}`);
-        });
+        json = {} ;
+        attach =  {};
+        },
+      err => {
+        console.log(err.status);
+        this.toastService.failToast("Unsucessful")
+      });
   
     });
 
