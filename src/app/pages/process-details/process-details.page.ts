@@ -20,17 +20,13 @@ export class ProcessDetailsPage implements OnInit {
   @Input() jsonFormData: any;
   public myForm: FormGroup = this.fb.group({});
 
-  // ngOnChanges(changes: SimpleChanges) {
-  //   if (!changes.processVars) {
-  //     this.createForm();
-  //   }
-  // }
-
   createForm()
   {
     Object.entries(this.processVars).forEach( ([key,value]) => {
       this.myForm.addControl(key,new FormControl('', Validators.required));
-      this.obj.push(key);
+      this.obj.push(
+        {'type':value['type'],
+         'name': key});
     });
   }
 
@@ -66,16 +62,39 @@ export class ProcessDetailsPage implements OnInit {
         this.processVars = res ; 
         this.createForm(); 
       });
-      this.processService.getProcess(key,process_id).subscribe((res) => {
-        this.process = res ; 
-        console.log(this.process)
-        
-      });
-      loading.dismiss();
+    this.processService.getProcess(key,process_id).subscribe((res) => {
+      this.process = res ;         
+    });
+
+    loading.dismiss();
 
     })
+  }
 
+  onSubmit()
+  {
+    let json = {}
+    let attach =  {}
+    Object.entries(this.myForm.value).forEach( ([key,value])=> {
+    
+    let inside = {
+        "value" : `${value}`,
+        "type" : "String",
+        "valueInfo": {} 
+      }
+    attach[`${key}`]= inside ;   
+      
+    });
+    json["variables"]= attach ; 
+    
+    const process_id = this.route.snapshot.paramMap.get('id');
 
+    this.storageService.get(AuthConstants.AUTH).then((key) => {
+      this.processService.submitForm(key,process_id,json).subscribe((res) => {
+          console.log(res); 
+        });
+  
+    });
 
   }
 

@@ -13,6 +13,7 @@ const corsUrl = environment.corsUrl ;
 const processesUri = environment.processesUri ;
 const processFormVars = environment.processFormVars ; 
 const processDef = environment.processDef ; 
+const submitUri = environment.submitUri ; 
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +44,13 @@ export class ProcessService {
   {
     const httpOptions = Header.getHeaders(key);
     return this.http.get<any>(`${corsUrl}/${baseUrl}/${processDef}/${process_id}`,httpOptions)
+  }
+
+  public submitForm(key : string , process_id : string , data : any) : Observable<any>
+  {
+    const httpOptions = Header.getHeaders(key);
+    return this.http.post<any>(`${corsUrl}/${baseUrl}/${processDef}/${process_id}/${submitUri}`,data,httpOptions)
+
   }
 
 }

@@ -20,10 +20,10 @@
   </h3>
   <form [formGroup]="myForm">
     <ion-item *ngFor="let control of obj" lines="full">
-      <ion-label position="floating">{{control}}</ion-label>
-      <ion-input [formControlName]="control" id="control"></ion-input>
+      <ion-label position="floating">{{control.name}}</ion-label>
+      <ion-input [formControlName]="control.name" type="control.type" id="control"></ion-input>
     </ion-item>
     <br>
-    <ion-button type="submit" expand="block" color="secondary">Submit</ion-button>
+    <ion-button type="submit" expand="block" color="secondary" (click)="onSubmit()">Submit</ion-button>
     </form>
   </ion-content>

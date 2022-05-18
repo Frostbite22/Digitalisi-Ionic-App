@@ -8,7 +8,8 @@ export const environment = {
   corsUrl : "https://cors-ionic.herokuapp.com",
   processDef : "process-definition",
   processesUri : "?latestVersion=true",
-  processFormVars : 'form-variables'
+  processFormVars : 'form-variables',
+  submitUri : 'submit-form'
 };
 
 /*
