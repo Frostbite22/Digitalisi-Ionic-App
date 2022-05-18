@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { LoadingController } from '@ionic/angular';
 import { AuthConstants } from 'src/app/config/auth-constants';
 import { AuthService } from 'src/app/services/auth.service';
 import { ProcessService } from 'src/app/services/process.service';
@@ -18,6 +19,7 @@ export class ProcessDetailsPage implements OnInit {
     private authService : AuthService,
     private route : ActivatedRoute,
     private processService : ProcessService,
+    private loadingController : LoadingController,
     private storageService : StorageService
   ) { }
 
@@ -25,14 +27,22 @@ export class ProcessDetailsPage implements OnInit {
     this.getProcessFormVars()
   }
 
-  getProcessFormVars() 
+  async getProcessFormVars() 
   {
+
+    const loading = await this.loadingController.create({
+      message : "Loading..",
+      spinner : "bubbles"
+    });
+
+    await loading.present();
+
     const process_id = this.route.snapshot.paramMap.get('id');
 
     this.storageService.get(AuthConstants.AUTH).then((key) => {
     this.processService.getProcessFormVars(key,process_id).subscribe((res) => {
         this.processVars = res ; 
-        console.log(res)
+        loading.dismiss();
       });
     })
 

@@ -30,7 +30,7 @@ export class ProcessPage implements OnInit {
    
   }
 
-  async getProcesses(event? : InfiniteScrollCustomEvent) 
+  async getProcesses() 
   {
 
     const loading = await this.loadingController.create({
@@ -50,7 +50,6 @@ export class ProcessPage implements OnInit {
         this.storageService.get(AuthConstants.AUTH).then((key) => {
         this.processService.getProcesses(key).subscribe((res) => {
           this.data = res ; 
-          console.log(res)
           loading.dismiss();
         });
         })
