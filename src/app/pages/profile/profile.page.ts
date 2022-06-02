@@ -4,22 +4,22 @@ import { InfiniteScrollCustomEvent, LoadingController } from '@ionic/angular';
 import { AuthConstants } from 'src/app/config/auth-constants';
 import { AuthService } from 'src/app/services/auth.service';
 import { ProcessService } from 'src/app/services/process.service';
+import { ProfileService } from 'src/app/services/profile.service';
 import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
-  selector: 'app-process',
-  templateUrl: './process.page.html',
-  styleUrls: ['./process.page.scss'],
+  selector: 'app-profile',
+  templateUrl: './profile.page.html',
+  styleUrls: ['./profile.page.scss'],
 })
-export class ProcessPage implements OnInit {
+export class ProfilePage implements OnInit {
 
   data? : any ;
-  username : string ;
 
   constructor(
     private route: ActivatedRoute,
      private router: Router,
-     private processService : ProcessService,
+     private profileService : ProfileService,
      private storageService : StorageService,
      private loadingController : LoadingController,
      private authService : AuthService
@@ -27,12 +27,12 @@ export class ProcessPage implements OnInit {
   ) { }
 
   ngOnInit() {  
-  this.getProcesses()
+  this.getProfile()
   }
 
   
 
-  async getProcesses() 
+  async getProfile() 
   {
 
     const loading = await this.loadingController.create({
@@ -42,26 +42,15 @@ export class ProcessPage implements OnInit {
 
       await loading.present();
 
-      this.route.queryParams.subscribe(params => {
-      try {
         this.storageService.get(AuthConstants.AUTH).then((key) => {
-          this.username = atob(key).split(':').shift() ; }
-        );
-        this.data = this.router.getCurrentNavigation().extras.state.processes;
-        loading.dismiss();
-      } 
-      catch 
-      {
-        this.storageService.get(AuthConstants.AUTH).then((key) => {
-        this.username = atob(key).split(':').shift() ;
-        this.processService.getProcesses(key).subscribe((res) => {
+        this.profileService.getProfile(key).subscribe( (res) => {
           this.data = res ; 
-          loading.dismiss();
-        });
-        })
-
-      }
+        }) 
       });
+
+      loading.dismiss();
+      
+ 
   }
 
   logout()
@@ -70,5 +59,6 @@ export class ProcessPage implements OnInit {
   }
  
   
+
 
 }

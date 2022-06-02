@@ -18,13 +18,15 @@ export class StorageService {
       key : storageKey,
       value : b64
     });
+
   }
+
 
   async get(storageKey : string)
   {
     const ret = await Storage.get({key : storageKey});
     return ret.value ;
-    //return decodeURIComponent(escape(atob( ret.value )));
+      // return decodeURIComponent(escape(atob(ret.value)));
   }
 
   async removeStorageItem(storageKey: string) 

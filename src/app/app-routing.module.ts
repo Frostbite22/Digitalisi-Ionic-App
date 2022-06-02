@@ -26,6 +26,12 @@ const routes: Routes = [
     runGuardsAndResolvers: 'always',
     loadChildren: () => import('./pages/process-details/process-details.module').then( m => m.ProcessDetailsPageModule)
   },
+  {
+    path: 'profile',
+    canActivate: [ProcessGuard],
+    runGuardsAndResolvers: 'always',
+    loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule)
+  },
 ];
 
 @NgModule({

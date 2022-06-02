@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-title class="ion-text-center">Profile Informations </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">
+        <ion-icon name="log-out"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item button lines="full">
+      <ion-label>
+        {{data?.id}}
+      </ion-label>
+    </ion-item>
+    <ion-item button lines="full">
+      <ion-label>
+        {{data?.firstName}}
+      </ion-label>
+    </ion-item>
+
+    <ion-item button lines="full">
+      <ion-label>
+        {{data?.lastName}}
+      </ion-label>
+    </ion-item>
+
+    <ion-item button lines="full">
+      <ion-label>
+        {{data?.email}}
+      </ion-label>
+    </ion-item>
+
+
+  </ion-list>
+
+</ion-content>
