@@ -32,6 +32,20 @@ const routes: Routes = [
     runGuardsAndResolvers: 'always',
     loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule)
   },
+  {
+    path: 'task',
+    canActivate: [ProcessGuard],
+    runGuardsAndResolvers: 'always',
+    loadChildren: () => import('./pages/task/task.module').then( m => m.TaskPageModule)
+  },
+  {
+    path: 'task/:id',
+    loadChildren: () => import('./pages/task-detail/task-detail.module').then( m => m.TaskDetailPageModule)
+  },
+  {
+    path: 'task-assigned',
+    loadChildren: () => import('./pages/task-assigned/task-assigned.module').then( m => m.TaskAssignedPageModule)
+  },
 ];
 
 @NgModule({

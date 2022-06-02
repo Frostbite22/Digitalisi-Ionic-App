@@ -1,6 +1,7 @@
-<ion-header>
+<ion-header >
   <ion-toolbar color="secondary">
-    <ion-title class="ion-text-center">Profile Informations </ion-title>
+    <ion-title class="ion-text-center">Tasks </ion-title>
+    <ion-title class="ion-text-center">{{username}}</ion-title>    
 
     <ion-buttons slot="end">
       <ion-button (click)="logout()">
@@ -12,32 +13,25 @@
 
 <ion-content>
   <ion-list>
-    <ion-item lines="full">
+    <ion-item button lines="full" *ngFor="let task of data" [routerLink] ="[task.id]">
       <ion-label>
-      id :  {{data?.id}}
+        {{task.name}} {{task.assignee}}
       </ion-label>
-    </ion-item>
-    <ion-item lines="full">
-      <ion-label>
-      firstName :  {{data?.firstName}}
-      </ion-label>
-    </ion-item>
+      <ion-badge slot="end">
+        {{task.priority}}
+      </ion-badge>
 
-    <ion-item lines="full">
-      <ion-label>
-      lastName :  {{data?.lastName}}
-      </ion-label>
     </ion-item>
-
-    <ion-item lines="full">
-      <ion-label>
-      email :  {{data?.email}}
-      </ion-label>
-    </ion-item>
-
-
   </ion-list>
+  
 
+  <ion-infinite-scroll (ionInfinite)="getTasks($event)">
+    <ion-infinite-scroll-content
+    loadingSpinner="bubbles"
+    loadingText="Loading more data...">
+
+    </ion-infinite-scroll-content>
+</ion-infinite-scroll>
 </ion-content>
 
 <ion-toolbar>

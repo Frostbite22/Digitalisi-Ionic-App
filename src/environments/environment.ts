@@ -9,7 +9,9 @@ export const environment = {
   processDef : "process-definition",
   processesUri : "?latestVersion=true",
   processFormVars : 'form-variables',
-  submitUri : 'submit-form'
+  submitUri : 'submit-form',
+  task : 'task',
+  assigned : 'task?assignee='
 };
 
 /*
