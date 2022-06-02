@@ -30,7 +30,7 @@ export class TaskService {
       return this.http.get<any>(`${corsUrl}/${baseUrl}/${task}`,httpOptions)
     }
 
-  public getTasksAssigned(key : string) : Observable<any>
+  public getAssignedTasks(key : string) : Observable<any>
     {
       const httpOptions = Header.getHeaders(key);
       return this.http.get<any>(`${baseUrl}/${assigned}${atob(key).split(':').shift()}`,httpOptions)
