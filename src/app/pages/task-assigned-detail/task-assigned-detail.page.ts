@@ -10,10 +10,10 @@ import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-task-detail',
-  templateUrl: './task-detail.page.html',
-  styleUrls: ['./task-detail.page.scss'],
+  templateUrl: './task-assigned-detail.page.html',
+  styleUrls: ['./task-assigned-detail.page.scss'],
 })
-export class TaskDetailPage implements OnInit {
+export class TaskAssignedDetailPage implements OnInit {
 
   taskVars : any;
   task : any ; 
@@ -96,7 +96,7 @@ export class TaskDetailPage implements OnInit {
     const task_id = this.route.snapshot.paramMap.get('id');
 
     this.storageService.get(AuthConstants.AUTH).then((key) => {
-      this.taskService.submitForm(key,task_id,json).subscribe((res) => {
+      this.taskService.submitForm(key,task_id,{}).subscribe((res) => {
         this.toastService.presentToast(`submitted sucessfully with Tracking id ${res.id}`);
         json = {} ;
         attach =  {};
@@ -111,13 +111,13 @@ export class TaskDetailPage implements OnInit {
 
   }
 
-  claimTask()
+  unclaimTask()
   {
     const task_id = this.route.snapshot.paramMap.get('id');
     console.log(task_id);
     this.storageService.get(AuthConstants.AUTH).then((key) => {
-      this.taskService.claimTask(key,task_id).subscribe((res)=> {
-        this.toastService.presentToast(`Task is claimed successfully`);
+      this.taskService.unclaimTask(key,task_id).subscribe((res)=> {
+        this.toastService.presentToast(`Task is unclaimed successfully`);
       });
     })
   }

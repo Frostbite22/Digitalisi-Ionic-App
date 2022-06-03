@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule} from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -13,7 +14,9 @@ import { TaskDetailPage } from './task-detail.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    TaskDetailPageRoutingModule
+    TaskDetailPageRoutingModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   declarations: [TaskDetailPage]
 })

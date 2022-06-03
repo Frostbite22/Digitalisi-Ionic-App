@@ -62,6 +62,7 @@ export class ProcessDetailsPage implements OnInit {
     this.processService.getProcessFormVars(key,process_id).subscribe((res) => {
         this.processVars = res ; 
         this.createForm(); 
+        console.log(this.obj)
       });
     this.processService.getProcess(key,process_id).subscribe((res) => {
       this.process = res ;         
@@ -76,14 +77,18 @@ export class ProcessDetailsPage implements OnInit {
   {
     let json = {}
     let attach =  {}
+    let i = 0 ;
     Object.entries(this.myForm.value).forEach( ([key,value])=> {
     
+      console.log(this.obj[i]['type']);
+      
     let inside = {
         "value" : `${value}`,
-        "type" : "String",
+        "type" : this.obj[i]['type'],
         "valueInfo": {} 
       }
-    attach[`${key}`]= inside ;   
+    attach[`${key}`]= inside ;  
+    i++ ;  
       
     });
     json["variables"]= attach ; 

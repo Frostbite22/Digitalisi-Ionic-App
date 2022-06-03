@@ -40,11 +40,19 @@ const routes: Routes = [
   },
   {
     path: 'task/:id',
+    canActivate: [ProcessGuard],
+    runGuardsAndResolvers: 'always',
     loadChildren: () => import('./pages/task-detail/task-detail.module').then( m => m.TaskDetailPageModule)
   },
   {
     path: 'task-assigned',
+    canActivate: [ProcessGuard],
+    runGuardsAndResolvers: 'always',
     loadChildren: () => import('./pages/task-assigned/task-assigned.module').then( m => m.TaskAssignedPageModule)
+  },
+  {
+    path: 'task-assigned/:id',
+    loadChildren: () => import('./pages/task-assigned-detail/task-assigned-detail.module').then( m => m.TaskAssignedDetailPageModule)
   },
 ];
 

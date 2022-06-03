@@ -43,7 +43,7 @@ export class TaskAssignedPage implements OnInit {
       
         this.storageService.get(AuthConstants.AUTH).then((key) => {
         this.username = atob(key).split(':').shift() ;
-        this.taskService.getTasks(key).subscribe( (res) => {
+        this.taskService.getAssignedTasks(key).subscribe( (res) => {
           this.data = res ; 
 
         }) 
